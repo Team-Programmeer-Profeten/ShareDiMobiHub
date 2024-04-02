@@ -1,12 +1,36 @@
 <script setup>
-import { PhotoIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
 import LineStripe from '@/components/LineStripe.vue'
+import { json } from 'stream/consumers'
 
 const handleForm = async (event) => {
+  console.log('Handle Form')
   const form = event.target
   const formData = new FormData(form)
   let data = Object.fromEntries(formData)
-  console.log(data)
+
+  let parentElement = document.querySelector('#vergelijkingen')
+  let inputElements = parentElement.querySelectorAll('input')
+
+  let compareDetails = {}
+
+  inputElements.forEach((input) => {
+    compareDetails[input.name] = input.checked
+  })
+
+  const timeFormat = document.querySelector('fieldset:last-of-type input[type="radio"]:checked').id
+
+  let data_options = {
+    municipality: data.gemeente,
+    details: compareDetails,
+    areas: [],
+    timeslot: {
+      start_date: data['start-date'],
+      end_date: data['end-date']
+    },
+    time_format: timeFormat
+  }
+
+  console.log(data_options)
 }
 
 window.onload = function () {
@@ -99,7 +123,7 @@ window.onload = function () {
             </div>
 
             <div class="max-w-2xl space-y-10 md:col-span-2">
-              <fieldset>
+              <fieldset id="vergelijkingen">
                 <legend class="text-sm font-semibold leading-6 text-gray-900">
                   Vergelijkingen
                 </legend>
@@ -107,10 +131,11 @@ window.onload = function () {
                   <div class="relative flex gap-x-3">
                     <div class="flex h-6 items-center">
                       <input
-                        id="comments"
-                        name="comments"
+                        id="amount_vehicles"
+                        name="amount_vehicles"
                         type="checkbox"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        checked
                       />
                     </div>
                     <div class="text-sm leading-6">
@@ -126,10 +151,11 @@ window.onload = function () {
                   <div class="relative flex gap-x-3">
                     <div class="flex h-6 items-center">
                       <input
-                        id="amount_vehicles"
-                        name="amount_vehicles"
+                        id="distance_travelled"
+                        name="distance_travelled"
                         type="checkbox"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        checked
                       />
                     </div>
                     <div class="text-sm leading-6">
@@ -144,10 +170,11 @@ window.onload = function () {
                   <div class="relative flex gap-x-3">
                     <div class="flex h-6 items-center">
                       <input
-                        id="distance_travelled"
-                        name="distance_travelled"
+                        id="rentals"
+                        name="rentals"
                         type="checkbox"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        checked
                       />
                     </div>
                     <div class="text-sm leading-6">
@@ -158,10 +185,11 @@ window.onload = function () {
                   <div class="relative flex gap-x-3">
                     <div class="flex h-6 items-center">
                       <input
-                        id="rentals"
-                        name="rentals"
+                        id="zone_occupation"
+                        name="zone_occupation"
                         type="checkbox"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        checked
                       />
                     </div>
                     <div class="text-sm leading-6">
@@ -174,7 +202,9 @@ window.onload = function () {
                 </div>
               </fieldset>
               <fieldset>
-                <legend class="text-sm font-semibold leading-6 text-gray-900">Tijd formaat</legend>
+                <legend id="time_format" class="text-sm font-semibold leading-6 text-gray-900">
+                  Tijd formaat
+                </legend>
                 <p class="mt-1 text-sm leading-6 text-gray-600">
                   Geef het gewenste tijdformaat op voor het rapport.
                 </p>
