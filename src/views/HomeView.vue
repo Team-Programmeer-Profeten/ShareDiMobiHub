@@ -1,8 +1,14 @@
 <script setup>
 import LineStripe from '@/components/LineStripe.vue'
+import { useGeoStore } from '@/stores/geoStore'
+import { ref } from 'vue'
+
+const geoStore = useGeoStore()
+const gemeentes = ref(geoStore.getAllGemeentes())
 
 const handleForm = async (event) => {
   console.log('Handle Form')
+
   const form = event.target
   const formData = new FormData(form)
   let data = Object.fromEntries(formData)
@@ -20,8 +26,8 @@ const handleForm = async (event) => {
 
   let data_options = {
     municipality: data.gemeente,
-    details: compareDetails,
     areas: [],
+    details: compareDetails,
     timeslot: {
       start_date: data['start-date'],
       end_date: data['end-date']
@@ -73,9 +79,9 @@ window.onload = function () {
                     name="gemeente"
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                    <option>Rotterdam</option>
-                    <option>Utrecht</option>
-                    <option>Mexico</option>
+                    <option v-for="(gemeente, index) in gemeentes" :key="index">
+                      {{ gemeente }}
+                    </option>
                   </select>
                 </div>
               </div>
