@@ -1,6 +1,24 @@
 <script setup>
 import { PhotoIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
 import LineStripe from '@/components/LineStripe.vue'
+
+const handleForm = async (event) => {
+  const form = event.target
+  const formData = new FormData(form)
+  let data = Object.fromEntries(formData)
+  console.log(data)
+}
+
+window.onload = function () {
+  let date = new Date()
+  let dateString = date.toISOString().substring(0, 10)
+  document.getElementById('end-date').value = dateString
+
+  date.setDate(date.getDate() - 30)
+  dateString = date.toISOString().substring(0, 10)
+
+  document.getElementById('start-date').value = dateString
+}
 </script>
 
 <template>
@@ -9,7 +27,7 @@ import LineStripe from '@/components/LineStripe.vue'
     <p class="my-3 text-gray-500">Lorem ipsum dolor sit amet, consecteur</p>
     <LineStripe />
     <div class="">
-      <form>
+      <form @submit.prevent="handleForm">
         <div class="space-y-12">
           <div
             class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3"
@@ -23,48 +41,47 @@ import LineStripe from '@/components/LineStripe.vue'
 
             <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
               <div class="sm:col-span-4">
-                <label for="country" class="block text-sm font-medium leading-6 text-gray-900"
+                <label for="gemeente" class="block text-sm font-medium leading-6 text-gray-900"
                   >Gemeente</label
                 >
                 <div class="mt-2">
                   <select
-                    id="country"
-                    name="country"
-                    autocomplete="country-name"
+                    id="gemeente"
+                    name="gemeente"
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                    <option>Rotterrdam</option>
+                    <option>Rotterdam</option>
                     <option>Utrecht</option>
                     <option>Mexico</option>
                   </select>
                 </div>
               </div>
               <div class="sm:col-span-3">
-                <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900"
+                <label for="start-date" class="block text-sm font-medium leading-6 text-gray-900"
                   >Startdatum</label
                 >
                 <div class="mt-2">
                   <input
                     type="date"
-                    name="first-name"
-                    id="first-name"
-                    autocomplete="given-name"
+                    name="start-date"
+                    id="start-date"
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    required
                   />
                 </div>
               </div>
 
               <div class="sm:col-span-3">
-                <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900"
+                <label for="end-date" class="block text-sm font-medium leading-6 text-gray-900"
                   >Einddatum</label
                 >
                 <div class="mt-2">
                   <input
                     type="date"
-                    name="last-name"
-                    id="last-name"
-                    autocomplete="family-name"
+                    name="end-date"
+                    id="end-date"
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    required
                   />
                 </div>
               </div>
@@ -97,7 +114,7 @@ import LineStripe from '@/components/LineStripe.vue'
                       />
                     </div>
                     <div class="text-sm leading-6">
-                      <label for="comments" class="font-medium text-gray-900"
+                      <label for="amount_vehicles" class="font-medium text-gray-900"
                         >Hoeveelheid voertuigen</label
                       >
                       <p class="text-gray-500">
@@ -109,14 +126,14 @@ import LineStripe from '@/components/LineStripe.vue'
                   <div class="relative flex gap-x-3">
                     <div class="flex h-6 items-center">
                       <input
-                        id="candidates"
-                        name="candidates"
+                        id="amount_vehicles"
+                        name="amount_vehicles"
                         type="checkbox"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                       />
                     </div>
                     <div class="text-sm leading-6">
-                      <label for="candidates" class="font-medium text-gray-900"
+                      <label for="distance_travelled" class="font-medium text-gray-900"
                         >Afstand afgelegd</label
                       >
                       <p class="text-gray-500">
@@ -127,30 +144,85 @@ import LineStripe from '@/components/LineStripe.vue'
                   <div class="relative flex gap-x-3">
                     <div class="flex h-6 items-center">
                       <input
-                        id="offers"
-                        name="offers"
+                        id="distance_travelled"
+                        name="distance_travelled"
                         type="checkbox"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                       />
                     </div>
                     <div class="text-sm leading-6">
-                      <label for="offers" class="font-medium text-gray-900">Rentals</label>
+                      <label for="rentals" class="font-medium text-gray-900">Rentals</label>
                       <p class="text-gray-500">bla bla bla bla</p>
                     </div>
                   </div>
                   <div class="relative flex gap-x-3">
                     <div class="flex h-6 items-center">
                       <input
-                        id="candidates"
-                        name="candidates"
+                        id="rentals"
+                        name="rentals"
                         type="checkbox"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                       />
                     </div>
                     <div class="text-sm leading-6">
-                      <label for="candidates" class="font-medium text-gray-900">Occupation</label>
+                      <label for="zone_occupation" class="font-medium text-gray-900"
+                        >Occupation</label
+                      >
                       <p class="text-gray-500">Vergelijk ???</p>
                     </div>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend class="text-sm font-semibold leading-6 text-gray-900">Tijd formaat</legend>
+                <p class="mt-1 text-sm leading-6 text-gray-600">
+                  Geef het gewenste tijdformaat op voor het rapport.
+                </p>
+                <div class="mt-6 space-y-6">
+                  <div class="flex items-center gap-x-3">
+                    <input
+                      id="hourly"
+                      name="time_format"
+                      type="radio"
+                      class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                      required
+                    />
+                    <label for="hourly" class="block text-sm font-medium leading-6 text-gray-900"
+                      >Hourly</label
+                    >
+                  </div>
+                  <div class="flex items-center gap-x-3">
+                    <input
+                      id="daily"
+                      name="time_format"
+                      type="radio"
+                      class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    />
+                    <label for="daily" class="block text-sm font-medium leading-6 text-gray-900"
+                      >Daily</label
+                    >
+                  </div>
+                  <div class="flex items-center gap-x-3">
+                    <input
+                      id="weekly"
+                      name="time_format"
+                      type="radio"
+                      class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    />
+                    <label for="weekly" class="block text-sm font-medium leading-6 text-gray-900"
+                      >Weekly</label
+                    >
+                  </div>
+                  <div class="flex items-center gap-x-3">
+                    <input
+                      id="monthly"
+                      name="time_format"
+                      type="radio"
+                      class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    />
+                    <label for="monthly" class="block text-sm font-medium leading-6 text-gray-900"
+                      >Monthly</label
+                    >
                   </div>
                 </div>
               </fieldset>
