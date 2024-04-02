@@ -9,8 +9,8 @@ export const useGeoStore = defineStore('geo', {
   }),
   actions: {
     getMatchingData(searchString: string) {
-      return this.data.features.filter((item) =>
-        item.GM_NAAM.toLowerCase().includes(searchString.toLowerCase())
+      return this.data.features.filter(
+        (item) => item.GM_NAAM.toLowerCase() == searchString.toLowerCase()
       )
     },
     getAllGemeentes() {

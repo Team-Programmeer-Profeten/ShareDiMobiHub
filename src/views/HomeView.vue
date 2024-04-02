@@ -6,6 +6,14 @@ import { ref } from 'vue'
 const geoStore = useGeoStore()
 const gemeentes = ref(geoStore.getAllGemeentes())
 
+let handleSelect = (event) => {
+  let gemeenteNaam = event.target.value
+  let wijkData = geoStore.getMatchingData(gemeenteNaam)
+  selectedWijken.value = wijkData
+}
+
+const selectedWijken = ref([])
+
 const handleForm = async (event) => {
   console.log('Handle Form')
 
@@ -75,6 +83,7 @@ window.onload = function () {
                 >
                 <div class="mt-2">
                   <select
+                    @change="handleSelect"
                     id="gemeente"
                     name="gemeente"
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -85,6 +94,19 @@ window.onload = function () {
                   </select>
                 </div>
               </div>
+
+              <div
+                class="sm:col-span-6 h-60 overflow-scroll overflow-x-hidden grid gap-1 px-2 pt-1"
+              >
+                <label for="wijken" class="block text-sm font-medium leading-6 text-gray-900"
+                  >Wijken</label
+                >
+                <div v-for="(wijk, index) in selectedWijken" :key="index">
+                  <input type="checkbox" :name="wijk.WK_CODE" :id="wijk.WK_CODE" />
+                  <label :for="wijk.WK_CODE" class="ml-2">{{ wijk.WK_NAAM }}</label>
+                </div>
+              </div>
+
               <div class="sm:col-span-3">
                 <label for="start-date" class="block text-sm font-medium leading-6 text-gray-900"
                   >Startdatum</label
