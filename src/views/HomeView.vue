@@ -1,6 +1,5 @@
 <script setup>
 import LineStripe from '@/components/LineStripe.vue'
-import { json } from 'stream/consumers'
 
 const handleForm = async (event) => {
   console.log('Handle Form')
