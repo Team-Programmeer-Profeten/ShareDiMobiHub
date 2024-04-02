@@ -43,6 +43,10 @@ const handleForm = async (event) => {
     time_format: timeFormat
   }
 
+  let wijken = document.querySelectorAll('#wijken input[type="checkbox"]:checked')
+  wijken.forEach((wijk) => {
+    data_options.areas.push(wijk.id)
+  })
   console.log(data_options)
 }
 
@@ -101,7 +105,7 @@ window.onload = function () {
                 <label for="wijken" class="block text-sm font-medium leading-6 text-gray-900"
                   >Wijken</label
                 >
-                <div v-for="(wijk, index) in selectedWijken" :key="index">
+                <div id="wijken" v-for="(wijk, index) in selectedWijken" :key="index">
                   <input type="checkbox" :name="wijk.WK_CODE" :id="wijk.WK_CODE" />
                   <label :for="wijk.WK_CODE" class="ml-2">{{ wijk.WK_NAAM }}</label>
                 </div>
