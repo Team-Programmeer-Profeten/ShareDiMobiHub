@@ -65,7 +65,7 @@ window.onload = function () {
 <template>
   <div class="my-16 mx-24">
     <h1 class="text-4xl font-semibold">Raport genereren</h1>
-    <p class="my-3 text-gray-500">Lorem ipsum dolor sit amet, consecteur</p>
+    <p class="my-3 text-gray-500">Selecteer de opties die u wilt gebruiken</p>
     <LineStripe />
     <div class="">
       <form @submit.prevent="handleForm">
@@ -74,9 +74,9 @@ window.onload = function () {
             class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3"
           >
             <div>
-              <h2 class="text-base font-semibold leading-7 text-gray-900">Locatie & Datum</h2>
+              <h2 class="text-base font-semibold leading-7 text-gray-900">Locaties & Periode</h2>
               <p class="mt-1 text-sm leading-6 text-gray-600">
-                Geef de gewenste locatie, start en einddatum op voor het genereren van het rapport.
+                Geef de gewenste locaties en de start- en einddatum op van de periode voor het genereren van het rapport.
               </p>
             </div>
 
@@ -92,7 +92,7 @@ window.onload = function () {
                     name="gemeente"
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                    <option v-for="(gemeente, index) in gemeentes" :key="index">
+                    <option v-for="(gemeente, index) in gemeentes.sort()" :key="index">
                       {{ gemeente }}
                     </option>
                   </select>
@@ -105,8 +105,8 @@ window.onload = function () {
                 <label for="wijken" class="block text-sm font-medium leading-6 text-gray-900"
                   >Wijken</label
                 >
-                <div id="wijken" v-for="(wijk, index) in selectedWijken" :key="index">
-                  <input type="checkbox" :name="wijk.WK_CODE" :id="wijk.WK_CODE" />
+                <div id="wijken" v-for="(wijk, index) in selectedWijken.sort((a, b) => a.WK_NAAM.localeCompare(b.WK_NAAM))" :key="index">
+                  <input type="checkbox" :name="wijk.WK_CODE" :id="wijk.WK_CODE" checked />
                   <label :for="wijk.WK_CODE" class="ml-2">{{ wijk.WK_NAAM }}</label>
                 </div>
               </div>
@@ -149,14 +149,14 @@ window.onload = function () {
             <div>
               <h2 class="text-base font-semibold leading-7 text-gray-900">Rapportdetails</h2>
               <p class="mt-1 text-sm leading-6 text-gray-600">
-                Vink de gewenste details aan voor vergelijkingen op het rapport.
+                Vink de gewenste details aan om in uw rapport op te nemen.
               </p>
             </div>
 
             <div class="max-w-2xl space-y-10 md:col-span-2">
               <fieldset id="vergelijkingen">
                 <legend class="text-sm font-semibold leading-6 text-gray-900">
-                  Vergelijkingen
+                  Onderwerpen
                 </legend>
                 <div class="mt-6 space-y-6">
                   <div class="relative flex gap-x-3">
@@ -174,8 +174,7 @@ window.onload = function () {
                         >Hoeveelheid voertuigen</label
                       >
                       <p class="text-gray-500">
-                        Vergelijk het aantal aanwezige / gebruikte voertuigen in de geselecteerde
-                        periode.
+                        Hoeveel voertuigen zijn er in de geselecteerde periode beschikbaar geweest.
                       </p>
                     </div>
                   </div>
@@ -194,7 +193,7 @@ window.onload = function () {
                         >Afstand afgelegd</label
                       >
                       <p class="text-gray-500">
-                        Vergelijk de afstand afgelegd per voertuig in de geselecteerd periode.
+                        Hoeveel kilometer is er in de geselecteerde periode afgelegd per voertuig.
                       </p>
                     </div>
                   </div>
@@ -210,7 +209,9 @@ window.onload = function () {
                     </div>
                     <div class="text-sm leading-6">
                       <label for="rentals" class="font-medium text-gray-900">Rentals</label>
-                      <p class="text-gray-500">bla bla bla bla</p>
+                      <p class="text-gray-500">
+                        Hoeveel verhuringen zijn er in de geselecteerde periode geweest.
+                      </p>
                     </div>
                   </div>
                   <div class="relative flex gap-x-3">
@@ -225,9 +226,11 @@ window.onload = function () {
                     </div>
                     <div class="text-sm leading-6">
                       <label for="zone_occupation" class="font-medium text-gray-900"
-                        >Occupation</label
+                        >Zone bezetting</label
                       >
-                      <p class="text-gray-500">Vergelijk ???</p>
+                      <p class="text-gray-500">
+                        Hoeveel zones zijn er in de geselecteerde periode bezet geweest.
+                      </p>
                     </div>
                   </div>
                 </div>
