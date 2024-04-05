@@ -48,6 +48,22 @@ const handleForm = async (event) => {
     data_options.areas.push(wijk.id)
   })
   console.log(data_options)
+
+  // Call API to generate report
+  fetch('http://145.38.194.144/report', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data_options)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data)
+    })
+    .catch((error) => {
+      console.error('Error:', error)
+    });
 }
 
 window.onload = function () {
