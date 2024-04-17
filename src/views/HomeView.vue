@@ -80,7 +80,7 @@ window.onload = function () {
 
 <template>
   <div class="my-16 mx-24">
-    <h1 class="text-4xl font-semibold">Raport genereren</h1>
+    <h1 class="text-4xl font-semibold">Rapport genereren</h1>
     <p class="my-3 text-gray-500">Selecteer de opties die u wilt gebruiken</p>
     <LineStripe />
     <div class="">
@@ -174,8 +174,10 @@ window.onload = function () {
                 <legend class="text-sm font-semibold leading-6 text-gray-900">
                   Onderwerpen
                 </legend>
+                
                 <div class="mt-6 space-y-6">
                   <div class="relative flex gap-x-3">
+
                     <div class="flex h-6 items-center">
                       <input
                         id="amount_vehicles"
@@ -185,6 +187,7 @@ window.onload = function () {
                         checked
                       />
                     </div>
+
                     <div class="text-sm leading-6">
                       <label for="amount_vehicles" class="font-medium text-gray-900"
                         >Hoeveelheid voertuigen</label
@@ -194,6 +197,7 @@ window.onload = function () {
                       </p>
                     </div>
                   </div>
+
                   <div class="relative flex gap-x-3">
                     <div class="flex h-6 items-center">
                       <input
@@ -204,6 +208,7 @@ window.onload = function () {
                         checked
                       />
                     </div>
+
                     <div class="text-sm leading-6">
                       <label for="distance_travelled" class="font-medium text-gray-900"
                         >Afstand afgelegd</label
@@ -213,6 +218,7 @@ window.onload = function () {
                       </p>
                     </div>
                   </div>
+
                   <div class="relative flex gap-x-3">
                     <div class="flex h-6 items-center">
                       <input
@@ -223,13 +229,15 @@ window.onload = function () {
                         checked
                       />
                     </div>
+
                     <div class="text-sm leading-6">
-                      <label for="rentals" class="font-medium text-gray-900">Rentals</label>
+                      <label for="rentals" class="font-medium text-gray-900">Verhuringen</label>
                       <p class="text-gray-500">
                         Hoeveel verhuringen zijn er in de geselecteerde periode geweest.
                       </p>
                     </div>
                   </div>
+
                   <div class="relative flex gap-x-3">
                     <div class="flex h-6 items-center">
                       <input
@@ -240,12 +248,34 @@ window.onload = function () {
                         checked
                       />
                     </div>
+
                     <div class="text-sm leading-6">
                       <label for="zone_occupation" class="font-medium text-gray-900"
                         >Zone bezetting</label
                       >
                       <p class="text-gray-500">
                         Hoeveel zones zijn er in de geselecteerde periode bezet geweest.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="relative flex gap-x-3">
+                    <div class="flex h-6 items-center">
+                      <input
+                        id="hubs"
+                        name="hubs"
+                        type="checkbox"
+                        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        checked
+                      />
+                    </div>
+
+                    <div class="text-sm leading-6">
+                      <label for="hubs" class="font-medium text-gray-900"
+                        >Hubs</label
+                      >
+                      <p class="text-gray-500">
+                        Hoeveel hubs zijn er in de geselecteerde periode gebruikt.
                       </p>
                     </div>
                   </div>
