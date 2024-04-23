@@ -7,7 +7,7 @@
           class="absolute top-0 w-full h-full bg-gray-900"
           style="background-size: 100%; background-repeat: no-repeat"
           :style="{
-            'background-image': 'url(' + require('../assets/img/register_bg_2.png').default + ')'
+            'background-image': `url('/assets/img/register_bg_2.png'))`
           }"
         ></div>
         <div class="container mx-auto px-4 h-full">
