@@ -4,11 +4,12 @@
       <div
         class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
       >
-        <a
+        <p
           class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
-          href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
-          >ShareDiMoBiHub</a
-        ><button
+        >
+          ShareDiMoBiHub
+        </p>
+        <button
           class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
           type="button"
           v-on:click="toggleNavbar()"
@@ -20,18 +21,6 @@
         class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none"
         v-bind:class="{ hidden: !showMenu, block: showMenu }"
       >
-        <ul class="flex flex-col lg:flex-row list-none mr-auto">
-          <li class="flex items-center">
-            <a
-              class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-              href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/login"
-              ><i
-                class="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2"
-              ></i>
-              Docs</a
-            >
-          </li>
-        </ul>
         <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
           <li class="flex items-center">
             <a
@@ -71,6 +60,7 @@ export default {
   },
   methods: {
     toggleNavbar: function () {
+      x
       this.showMenu = !this.showMenu
     }
   }

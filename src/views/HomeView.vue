@@ -65,14 +65,14 @@ const handleForm = async (event) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data_options)
-    })
-    .then(response => response.json())
-    .then(data => {
+  })
+    .then((response) => response.json())
+    .then((data) => {
       console.log('Success:', data)
     })
     .catch((error) => {
       console.error('Error:', error)
-    });
+    })
 }
 
 window.onload = function () {
@@ -101,7 +101,8 @@ window.onload = function () {
             <div>
               <h2 class="text-base font-semibold leading-7 text-gray-900">Locaties & Periode</h2>
               <p class="mt-1 text-sm leading-6 text-gray-600">
-                Geef de gewenste locaties en de start- en einddatum op van de periode voor het genereren van het rapport.
+                Geef de gewenste locaties en de start- en einddatum op van de periode voor het
+                genereren van het rapport.
               </p>
             </div>
 
@@ -130,7 +131,13 @@ window.onload = function () {
                 <label for="wijken" class="block text-sm font-medium leading-6 text-gray-900"
                   >Wijken</label
                 >
-                <div id="wijken" v-for="(wijk, index) in selectedWijken.sort((a, b) => a.WK_NAAM.localeCompare(b.WK_NAAM))" :key="index">
+                <div
+                  id="wijken"
+                  v-for="(wijk, index) in selectedWijken.sort((a, b) =>
+                    a.WK_NAAM.localeCompare(b.WK_NAAM)
+                  )"
+                  :key="index"
+                >
                   <input type="checkbox" :name="wijk.WK_CODE" :id="wijk.WK_CODE" checked />
                   <label :for="wijk.WK_CODE" class="ml-2">{{ wijk.WK_NAAM }}</label>
                 </div>
@@ -184,13 +191,10 @@ window.onload = function () {
 
             <div class="max-w-2xl space-y-10 md:col-span-2">
               <fieldset id="vergelijkingen">
-                <legend class="text-sm font-semibold leading-6 text-gray-900">
-                  Onderwerpen
-                </legend>
-                
+                <legend class="text-sm font-semibold leading-6 text-gray-900">Onderwerpen</legend>
+
                 <div class="mt-6 space-y-6">
                   <div class="relative flex gap-x-3">
-
                     <div class="flex h-6 items-center">
                       <input
                         id="amount_vehicles"
@@ -284,9 +288,7 @@ window.onload = function () {
                     </div>
 
                     <div class="text-sm leading-6">
-                      <label for="hubs" class="font-medium text-gray-900"
-                        >Hubs</label
-                      >
+                      <label for="hubs" class="font-medium text-gray-900">Hubs</label>
                       <p class="text-gray-500">
                         Hoeveel hubs zijn er in de geselecteerde periode gebruikt.
                       </p>
