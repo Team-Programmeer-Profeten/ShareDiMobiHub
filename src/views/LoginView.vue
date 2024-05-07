@@ -100,7 +100,7 @@ const testFunc = (event: any) => {
   const formData = new FormData(event.target)
   const email = formData.get('email')
   const password = formData.get('password')
-  if (email == 'anmar.noah@gmail.com' && password == '12345') {
+  if (email == 'anmar.noah@gmail.com' || 'admin@admin.com' && password == '12345') {
     router.push('/')
   } else {
     console.log('Login Failed')
