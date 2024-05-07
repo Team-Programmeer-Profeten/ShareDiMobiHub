@@ -45,6 +45,9 @@
                         required
                         style="transition: all 0.15s ease 0s"
                       />
+                      <small v-if="showErrorText" class="text-red-500 mt-2"
+                        >Invalid Login Credentials</small
+                      >
                     </div>
                     <!-- <div>
                       <label class="inline-flex items-center cursor-pointer"
@@ -91,18 +94,22 @@
 import NavbarComponent from '../components/Navbar.vue'
 import FooterComponent from '../components/Footer.vue'
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 const router = useRouter()
+const showErrorText = ref(false)
 
 // Rest of the code...
 
 const testFunc = (event: any) => {
+  showErrorText.value = false
   const formData = new FormData(event.target)
   const email = formData.get('email')
   const password = formData.get('password')
   if (email == 'anmar.noah@gmail.com' || 'admin@admin.com' && password == '12345') {
     router.push('/')
   } else {
+    showErrorText.value = true
     console.log('Login Failed')
   }
 }
