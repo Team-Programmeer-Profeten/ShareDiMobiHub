@@ -66,10 +66,19 @@ const handleForm = async (event) => {
     },
     body: JSON.stringify(data_options)
   })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data)
-    })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.blob();
+  })
+  .then((blob) => {
+    let objectURL = window.URL.createObjectURL(blob);
+    let link = document.createElement('a');
+    link.href = objectURL;
+    link.download = `${data_options['municipality']}-report.pdf`;
+    link.click();
+  })
     .catch((error) => {
       console.error('Error:', error)
     })
