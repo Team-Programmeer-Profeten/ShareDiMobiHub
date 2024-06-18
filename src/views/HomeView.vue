@@ -9,11 +9,16 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const authStore = useAuthStore()
 const geoStore = useGeoStore()
-const gemeentes = ref(geoStore.getAllGemeentes())
+const gemeentes = ref([])
 
 onMounted(() => {
   if (!authStore.loggedIn) {
     router.push('/login')
+  } else {
+    const user = authStore.getUser
+    gemeentes.value = [user.gemeente]
+    let wijkData = geoStore.getMatchingData(user.gemeente)
+    selectedWijken.value = wijkData
   }
 })
 

@@ -2,9 +2,13 @@
 import AuthService from '../services/AuthService'
 import { defineStore } from 'pinia'
 
+export interface User {
+  gemeente: string | null
+}
+
 interface State {
   loggedIn: boolean
-  gemeente: string
+  user: User | null
 }
 
 interface Credentials {
@@ -23,15 +27,16 @@ interface RegistrationDetails {
 export const useAuthStore = defineStore('auth', {
   state: (): State => ({
     loggedIn: false,
-    gemeente: ''
+    user: null
   }),
   actions: {
     async login({ email, password }: Credentials) {
       console.log('login() called')
       try {
-        const loggedIn = await AuthService.login(email, password)
-        if (loggedIn) this.setLoggedIn(loggedIn)
-        return loggedIn
+        const user = await AuthService.login(email, password)
+        if (user) this.setUser(user)
+        this.loggedIn = !!user
+        return this.loggedIn
       } catch (error) {
         console.error('Error during login:', error)
         throw error
@@ -41,16 +46,16 @@ export const useAuthStore = defineStore('auth', {
       this.loggedIn = payload
       console.log('loggedIn state changed: ' + this.loggedIn)
     },
-    setGemeente(payload: string) {
-      this.gemeente = payload
+    setUser(payload: User) {
+      this.user = payload
     }
   },
   getters: {
     getLoggedIn(state) {
       return state.loggedIn
     },
-    getGemeente(state) {
-      return state.gemeente
+    getUser(state) {
+      return state.user
     }
   }
 })
