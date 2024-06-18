@@ -2,9 +2,20 @@
 import LineStripe from '@/components/LineStripe.vue'
 import { useGeoStore } from '@/stores/geoStore'
 import { ref } from 'vue'
+import { useAuthStore } from '@/stores/authStore'
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+const authStore = useAuthStore()
 const geoStore = useGeoStore()
 const gemeentes = ref(geoStore.getAllGemeentes())
+
+onMounted(() => {
+  if (!authStore.loggedIn) {
+    router.push('/login')
+  }
+})
 
 let handleSelect = (event) => {
   let gemeenteNaam = event.target.value
@@ -66,19 +77,19 @@ const handleForm = async (event) => {
     },
     body: JSON.stringify(data_options)
   })
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.blob();
-  })
-  .then((blob) => {
-    let objectURL = window.URL.createObjectURL(blob);
-    let link = document.createElement('a');
-    link.href = objectURL;
-    link.download = `${data_options['municipality']}-report.pdf`;
-    link.click();
-  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      return response.blob()
+    })
+    .then((blob) => {
+      let objectURL = window.URL.createObjectURL(blob)
+      let link = document.createElement('a')
+      link.href = objectURL
+      link.download = `${data_options['municipality']}-report.pdf`
+      link.click()
+    })
     .catch((error) => {
       console.error('Error:', error)
     })
