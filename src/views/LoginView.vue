@@ -1,18 +1,11 @@
 <template>
   <div>
     <navbar-component></navbar-component>
-    <main>
-      <section class="absolute w-full h-full">
-        <div
-          class="absolute top-0 w-full h-full bg-gray-900"
-          style="background-size: 100%; background-repeat: no-repeat"
-          :style="{
-            'background-image': '../assets/img/register_bg_2.png'
-          }"
-        ></div>
-        <div class="container mx-auto px-4 h-full">
+    <main class="pt-4 grid grid-cols-1 sm:grid-cols-6 w-full h-screen bg-[#0d0a22]">
+      <section class="w-full xl:w-5/6 h-full col-span-3 xl:col-span-4">
+        <div class="container mx-auto px-4 xl:px-16 h-full">
           <div class="flex content-center items-center justify-center h-full">
-            <div class="w-full lg:w-4/12 px-4">
+            <div class="w-full px-2">
               <div
                 class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
               >
@@ -70,6 +63,7 @@
                       >
                         Sign In
                       </button>
+                      <GoogleLogin class="w-full" :callback="callback"></GoogleLogin>
                     </div>
                   </form>
                 </div>
@@ -78,14 +72,27 @@
                 <div class="w-1/2">
                   <a href="#pablo" class="text-gray-300"><small>Forgot password?</small></a>
                 </div>
-                <div class="w-1/2 text-right">
-                  <a href="#pablo" class="text-gray-300"><small>Create new account</small></a>
-                </div>
               </div>
             </div>
           </div>
         </div>
         <!-- <footer-component></footer-component> -->
+      </section>
+      <section
+        class="w-full h-full flex flex-col items-center justify-center col-span-3 xl:col-span-2"
+      >
+        <div
+          class="w-4/5 h-4/5 bg-white shadow-xl rounded-md flex flex-col items-center justify-center"
+          style="
+            background-image: url('/src/assets/img/PDF.png');
+            background-size: cover;
+            background-position: top;
+            background-repeat: no-repeat;
+            background-color: rgba(255, 255, 255, 0.8);
+          "
+        >
+          <p class="bg-[#ece7f9] opacity-75 px-5 py-4 rounded-lg font-bold">Rapport Voorbeeld</p>
+        </div>
       </section>
     </main>
   </div>
@@ -95,18 +102,37 @@ import NavbarComponent from '../components/Navbar.vue'
 import FooterComponent from '../components/Footer.vue'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
+import { decodeCredential, GoogleLogin } from 'vue3-google-login'
+import { useAuthStore } from '../stores/authStore'
 
+const authStore = useAuthStore()
 const router = useRouter()
 const showErrorText = ref(false)
 
-// Rest of the code...
-
-const testFunc = (event: any) => {
+const testFunc = async (event: any) => {
   showErrorText.value = false
   const formData = new FormData(event.target)
-  const email = formData.get('email')
-  const password = formData.get('password')
-  if (email == 'anmar.noah@gmail.com' || 'admin@admin.com' && password == '12345') {
+  const email = (formData.get('email') ?? '').toString()
+  const password = (formData.get('password') ?? '').toString()
+  const loggedIn = await authStore.login({ email: email, password: password })
+  if (loggedIn) {
+    router.push('/')
+  } else {
+    showErrorText.value = true
+    console.log('Login Failed')
+  }
+}
+
+const callback = async (response: any) => {
+  console.log('logged in')
+  console.log(response)
+  let user = decodeCredential(response.credential)
+  console.log(user)
+  console.log(user.email)
+  showErrorText.value = false
+  const password = 'google'
+  const loggedIn = await authStore.login({ email: user.email, password: password })
+  if (loggedIn) {
     router.push('/')
   } else {
     showErrorText.value = true
