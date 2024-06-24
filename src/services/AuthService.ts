@@ -9,9 +9,9 @@ class AuthService {
         return { gemeente: 'Rotterdam' }
       }
     }
-    if (username === 'tyler.rijk@gmail.com') {
+    if (username === 't.derijk@gmail.com') {
       if (password === '12345' || password === 'google') {
-        return { gemeente: 'Rotterdam' }
+        return { gemeente: 'Utrecht' }
       }
     }
     return null

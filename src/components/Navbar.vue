@@ -1,17 +1,17 @@
 <template>
   <nav
-    class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 pt-3 mb-10"
+    class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 pt-3 bg-white h-[75px] shadow-md"
   >
     <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
       <div class="w-full relative flex justify-between flex-row">
         <p
-          class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
+          class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-[#0d0a22]"
         >
           ShareDiMoBiHub
         </p>
         <img src="/src/assets/img/CROW_logo.png" class="w-40 h-14" />
-        <img src="/src/assets/img/HU_logo.png" class="w-40 h-28 -mt-8" />
-        <img src="/src/assets/img/INTERREG_logo.png" class="w-40 h-12" />
+        <img src="/src/assets/img/HU_logo.png" class="w-40 h-28 -mt-7" />
+        <img src="/src/assets/img/INTERREG_logo.png" class="w-40 h-12 mt-1" />
       </div>
       <div
         class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none"
