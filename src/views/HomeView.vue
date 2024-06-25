@@ -40,6 +40,8 @@ dayBefore.setDate(dayBefore.getDate() - 1)
 let maxDate = dayBefore.toISOString().substr(0, 10)
 
 const handleForm = async (event) => {
+  showSpinner.value = true
+  errorText.value = ''
   console.log('Handle Form')
 
   const form = event.target
@@ -75,10 +77,11 @@ const handleForm = async (event) => {
   console.log(data_options)
 
   // Call API to generate report
-  fetch('http://145.38.194.144/report', {
+  fetch('http://127.0.0.1:8080/report', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + authStore.getToken
     },
     body: JSON.stringify(data_options)
   })
@@ -94,9 +97,12 @@ const handleForm = async (event) => {
       link.href = objectURL
       link.download = `${data_options['municipality']}-report.pdf`
       link.click()
+      showSpinner.value = false
     })
     .catch((error) => {
       console.error('Error:', error)
+      errorText.value = 'Er is een fout opgetreden bij het genereren van het rapport.'
+      showSpinner.value = false
     })
 }
 
@@ -110,6 +116,9 @@ window.onload = function () {
 
   document.getElementById('start-date').value = dateString
 }
+
+const showSpinner = ref(false)
+const errorText = ref('')
 </script>
 
 <template>
@@ -381,15 +390,32 @@ window.onload = function () {
         </div>
 
         <div class="mt-6 flex items-center justify-end gap-x-6">
-          <button type="button" class="text-sm font-semibold leading-6 text-gray-900">
-            Cancel
-          </button>
+          <p class="text-red-500">{{ errorText }}</p>
           <button
             type="submit"
-            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            class="rounded-md text-white bg-indigo-600 px-3 py-2 text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            v-if="!showSpinner"
           >
             Rapport genereren
           </button>
+          <div
+            v-if="showSpinner"
+            class="flex flex-col items-end gap-2 text-indigo-500 font-semibold"
+          >
+            <p>
+              De PDF wordt gegenereerd en kan ongeveer 20 seconden duren. De download start
+              automatisch.
+            </p>
+            <div
+              class="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-indigo-600"
+              role="status"
+            >
+              <span
+                class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                >Loading...</span
+              >
+            </div>
+          </div>
         </div>
       </form>
     </div>

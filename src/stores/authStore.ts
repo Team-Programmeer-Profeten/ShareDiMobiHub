@@ -16,14 +16,6 @@ interface Credentials {
   password: string
 }
 
-interface RegistrationDetails {
-  firstName: string
-  lastName: string
-  username: string
-  password: string
-  dob: string
-}
-
 export const useAuthStore = defineStore('auth', {
   state: (): State => ({
     loggedIn: false,
@@ -31,12 +23,17 @@ export const useAuthStore = defineStore('auth', {
   }),
   actions: {
     async login({ email, password }: Credentials) {
-      console.log('login() called')
       try {
-        const user = await AuthService.login(email, password)
-        if (user) this.setUser(user)
-        this.loggedIn = !!user
-        return this.loggedIn
+        const loginResponse = await AuthService.login(email, password)
+        if (loginResponse.status !== 200) {
+          return false
+        }
+        const token = loginResponse.data.token
+        const municipality = loginResponse.data.municipality
+        this.setUser({ gemeente: municipality })
+        window.localStorage.setItem('token', token)
+        this.setLoggedIn(true)
+        return loginResponse
       } catch (error) {
         console.error('Error during login:', error)
         throw error
@@ -56,6 +53,9 @@ export const useAuthStore = defineStore('auth', {
     },
     getUser(state) {
       return state.user
+    },
+    getToken() {
+      return window.localStorage.getItem('token')
     }
   }
 })
