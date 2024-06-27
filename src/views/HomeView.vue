@@ -77,7 +77,7 @@ const handleForm = async (event) => {
   console.log(data_options)
 
   // Call API to generate report
-  fetch('http://127.0.0.1:8080/report', {
+  fetch('http://145.38.194.144/report', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
