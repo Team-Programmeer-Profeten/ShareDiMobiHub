@@ -42,19 +42,6 @@
                         >Invalid Login Credentials</small
                       >
                     </div>
-                    <!-- <div>
-                      <label class="inline-flex items-center cursor-pointer"
-                        ><input
-                          name="rememberMe"
-                          id="customCheckLogin"
-                          type="checkbox"
-                          class="form-checkbox border-0 rounded text-gray-800 ml-1 w-5 h-5"
-                          style="transition: all 0.15s ease 0s"
-                        /><span class="ml-2 text-sm font-semibold text-gray-700"
-                          >Remember me</span
-                        ></label
-                      >
-                    </div> -->
                     <div class="text-center mt-6">
                       <button
                         class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
@@ -76,7 +63,6 @@
             </div>
           </div>
         </div>
-        <!-- <footer-component></footer-component> -->
       </section>
       <section
         class="w-full h-full flex flex-col items-center justify-center col-span-3 xl:col-span-2"
@@ -99,7 +85,6 @@
 </template>
 <script setup lang="ts">
 import NavbarComponent from '../components/Navbar.vue'
-import FooterComponent from '../components/Footer.vue'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import { decodeCredential, GoogleLogin } from 'vue3-google-login'
@@ -125,10 +110,7 @@ const testFunc = async (event: any) => {
 
 const callback = async (response: any) => {
   console.log('logged in')
-  console.log(response)
   let user = decodeCredential(response.credential)
-  console.log(user)
-  console.log(user.email)
   showErrorText.value = false
   const password = 'google'
   const loggedIn = await authStore.login({ email: user.email, password: password })
