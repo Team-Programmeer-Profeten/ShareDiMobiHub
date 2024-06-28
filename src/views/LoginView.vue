@@ -70,7 +70,7 @@
         <div
           class="w-4/5 h-4/5 bg-white shadow-xl rounded-md flex flex-col items-center justify-center"
           style="
-            background-image: url('/src/assets/img/PDF.png');
+            background-image: url('images/PDF.png');
             background-size: cover;
             background-position: top;
             background-repeat: no-repeat;
